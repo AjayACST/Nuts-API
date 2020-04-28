@@ -18,12 +18,12 @@ def dict_factory(cursor, row):
 def home():
     return"<h1>RESTful Nut API</h1><p>This site is an API for providing images of nuts</p>"
 
-@app.route('/api/v1/resources/books/all', methods=['GET'])
+@app.route('/v1/resources/', methods=['GET'])
 def api_all():
-    conn = sqlite3.connect('books.db')
+    conn = sqlite3.connect('nuts.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    all_nuts = cur.execute('SELECT * FROM NUTS;').fetchall()
+    all_nuts = cur.execute('SELECT * FROM nuts;').fetchall()
 
     return jsonify(all_nuts)
 
@@ -33,13 +33,13 @@ def page_not_found(e):
 
 
 
-@app.route('/api/v1/resources/books', methods=['GET'])
+@app.route('/v1/resources', methods=['GET'])
 def api_filter():
     query_params = request.args
 
     id = query_params.get('id')
 
-    query = "SELECT * FROM NUTS WHERE"
+    query = "SELECT * FROM nuts WHERE"
     to_filter = []
 
     if id:
@@ -50,7 +50,7 @@ def api_filter():
 
     query = query[:-4] + ';'
 
-    conn = sqlite3.connect('books.db')
+    conn = sqlite3.connect('nuts.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
 
