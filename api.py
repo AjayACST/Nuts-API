@@ -18,7 +18,7 @@ def dict_factory(cursor, row):
 def home():
     return"<h1>RESTful Nut API</h1><p>This site is an API for providing images of nuts</p>"
 
-@app.route('/v1/resources/', methods=['GET'])
+@app.route('/v1/resources/all', methods=['GET'])
 def api_all():
     conn = sqlite3.connect('nuts.db')
     conn.row_factory = dict_factory
